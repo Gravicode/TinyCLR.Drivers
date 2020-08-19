@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCLR.Drivers", "TinyCLR.Drivers\TinyCLR.Drivers.csproj", "{48F99C6E-73F1-4F2C-A3B7-5445075A94E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48F99C6E-73F1-4F2C-A3B7-5445075A94E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48F99C6E-73F1-4F2C-A3B7-5445075A94E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48F99C6E-73F1-4F2C-A3B7-5445075A94E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48F99C6E-73F1-4F2C-A3B7-5445075A94E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B4542B10-CB6F-4DF9-B99C-766A2424513D}
+	EndGlobalSection
+EndGlobal
