@@ -35,7 +35,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Modules\PiezoSpeaker.txt" />
+    <Compile Include="Interface\ILed.cs" />
     <Compile Include="Interface\IRelay.cs" />
+    <Compile Include="Modules\Led.cs" />
     <Compile Include="Modules\Relay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
