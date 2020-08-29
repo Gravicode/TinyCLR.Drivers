@@ -63,6 +63,7 @@ namespace TinyCLR.Drivers.Modules
 		{
 			
 			IsOn = false;
+			IsAnimating = false;
 		}
 
 		/// <summary>

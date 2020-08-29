@@ -38,6 +38,7 @@
     <Compile Include="Interface\ILed.cs" />
     <Compile Include="Interface\IRelay.cs" />
     <Compile Include="Modules\Led.cs" />
+    <Compile Include="Modules\LedBarGraph.cs" />
     <Compile Include="Modules\Relay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
