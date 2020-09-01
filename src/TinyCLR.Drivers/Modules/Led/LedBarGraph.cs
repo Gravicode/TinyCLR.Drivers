@@ -4,7 +4,7 @@ using System.Collections;
 using System.Text;
 using System.Threading;
 
-namespace TinyCLR.Drivers.Modules
+namespace TinyCLR.Drivers.Modules.Led
 {
     /// <summary>
     /// Represents an LED bar graph composed on multiple LEDs

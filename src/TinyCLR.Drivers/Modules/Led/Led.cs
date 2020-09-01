@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using TinyCLR.Drivers.Interface;
 
-namespace TinyCLR.Drivers.Modules
+namespace TinyCLR.Drivers.Modules.Led
 {
 	/// <summary>
 	/// Represents a simple LED
