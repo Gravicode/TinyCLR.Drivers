@@ -34,11 +34,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Core\ResistorMode.cs" />
+    <Compile Include="Modules\Buttons\PushButton.cs" />
+    <Compile Include="System\EventHandler.cs" />
     <Content Include="Modules\PiezoSpeaker.txt" />
     <Compile Include="Core\CircuitTerminationType.cs" />
     <Compile Include="Core\Color.cs" />
     <Compile Include="Core\Converters.cs" />
     <Compile Include="Core\NumericExtensions.cs" />
+    <Compile Include="Interface\IButton.cs" />
+    <Compile Include="Interface\IDCMotor.cs" />
     <Compile Include="Interface\ILed.cs" />
     <Compile Include="Interface\IRelay.cs" />
     <Compile Include="Interface\IRgbLed.cs" />
@@ -48,7 +53,8 @@
     <Compile Include="Modules\Led\PwmLed.cs" />
     <Compile Include="Modules\Led\PwmLedBarGraph.cs" />
     <Compile Include="Modules\Led\RgbPwmLed.cs" />
-    <Compile Include="Modules\Relay.cs" />
+    <Compile Include="Modules\Motors\HBridgeMotor.cs" />
+    <Compile Include="Modules\Relays\Relay.cs" />
     <Compile Include="Modules\Led\RgbLed.cs" />
     <Compile Include="Modules\Led\RgbLed.Enums.cs" />
     <Compile Include="Modules\Led\TypicalForwardVoltage.cs" />
