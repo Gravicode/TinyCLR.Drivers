@@ -1,9 +1,11 @@
-﻿using System;
+﻿using GHIElectronics.TinyCLR.Devices.Pwm;
+using System;
 using System.Collections;
 using System.Text;
 using System.Threading;
+using TinyCLR.Drivers.Interface;
 
-namespace Meadow.Foundation.Audio
+namespace TinyCLR.Drivers.Modules.Speakers
 {
     /// <summary>
     /// Represents a 2 pin piezo-electric speaker capable of generating tones
@@ -13,7 +15,7 @@ namespace Meadow.Foundation.Audio
         /// <summary>
         /// Gets the port that is driving the Piezo Speaker
         /// </summary>
-        public IPwmPort Port { get; protected set; }
+        public PwmChannel Port { get; protected set; }
 
         private bool isPlaying = false;
 
@@ -21,15 +23,20 @@ namespace Meadow.Foundation.Audio
         /// Create a new PiezoSpeaker instance
         /// </summary>
         /// <param name="pin">PWM Pin connected to the PiezoSpeaker</param>
-        public PiezoSpeaker(IIODevice device, IPin pin, float frequency = 100, float dutyCycle = 0) :
-            this(device.CreatePwmPort(pin, frequency, dutyCycle))
-        { }
+        public PiezoSpeaker(string PwmControllerName, int pin, float frequency = 100, float dutyCycle = 0) 
+            
+        {
+            var controller = PwmController.FromName(PwmControllerName);
+            var pwmPort = controller.OpenChannel(pin);
+            Port.Controller.SetDesiredFrequency(frequency);
+            Port.SetActiveDutyCyclePercentage(dutyCycle);
+        }
 
         /// <summary>
         /// Create a new PiezoSpeaker instance
         /// </summary>
         /// <param name="port"></param>
-        public PiezoSpeaker(IPwmPort port)
+        public PiezoSpeaker(PwmChannel port)
         {
             Port = port;
         }
@@ -43,15 +50,16 @@ namespace Meadow.Foundation.Audio
         {
             if (frequency <= 1)
             {
-                throw new System.Exception("Piezo frequency must be greater than 1");
+                throw new Exception("Piezo frequency must be greater than 1");
             }
 
             if (!isPlaying)
             {
                 isPlaying = true;
 
-                Port.Frequency = frequency;
-                Port.DutyCycle = 0.5f;
+             
+                Port.Controller.SetDesiredFrequency(frequency);
+                Port.SetActiveDutyCyclePercentage(0.5f);
 
                 Port.Start();
 

@@ -34,10 +34,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Communications\SerialTextFile.cs" />
+    <Compile Include="Controllers\Pid\IdealPidController.cs" />
+    <Compile Include="Controllers\Pid\PidControllerBase.cs" />
+    <Compile Include="Controllers\Pid\StandardPidController.cs" />
+    <Compile Include="Core\ArrayEventArgs.cs" />
     <Compile Include="Core\ResistorMode.cs" />
+    <Compile Include="Interface\IPidController.cs" />
+    <Compile Include="Interface\IRotaryEncoder.cs" />
+    <Compile Include="Interface\IRotaryEncoderWithButton.cs" />
+    <Compile Include="Interface\ISwitch.cs" />
+    <Compile Include="Interface\IToneGenerator.cs" />
     <Compile Include="Modules\Buttons\PushButton.cs" />
+    <Compile Include="Modules\HallEffect\LinearHallEffectTachometer.cs" />
+    <Compile Include="Modules\Rotary\RotaryEncoder.cs" />
+    <Compile Include="Modules\Rotary\RotaryEncoderWithButton.cs" />
+    <Compile Include="Modules\Rotary\TwoBitGrayCode.cs" />
+    <Compile Include="Modules\Spatial\EulerAngles.cs" />
+    <Compile Include="Modules\Spatial\IDistanceSensor.cs" />
+    <Compile Include="Modules\Spatial\Quaternion.cs" />
+    <Compile Include="Modules\Spatial\Vector.cs" />
+    <Compile Include="Modules\Speakers\PiezoSpeaker.cs" />
+    <Compile Include="Modules\Switches\DipSwitch.cs" />
+    <Compile Include="Modules\Switches\SpdtSwitch.cs" />
+    <Compile Include="Modules\Switches\SpstSwitch.cs" />
     <Compile Include="System\EventHandler.cs" />
-    <Content Include="Modules\PiezoSpeaker.txt" />
     <Compile Include="Core\CircuitTerminationType.cs" />
     <Compile Include="Core\Color.cs" />
     <Compile Include="Core\Converters.cs" />
@@ -72,6 +93,9 @@
     </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Devices.Pwm, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GHIElectronics.TinyCLR.Devices.Pwm.2.0.0-rc2\lib\net452\GHIElectronics.TinyCLR.Devices.Pwm.dll</HintPath>
+    </Reference>
+    <Reference Include="GHIElectronics.TinyCLR.Devices.Uart, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GHIElectronics.TinyCLR.Devices.Uart.2.0.0-rc2\lib\net452\GHIElectronics.TinyCLR.Devices.Uart.dll</HintPath>
     </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Native, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GHIElectronics.TinyCLR.Native.2.0.0-rc2\lib\net452\GHIElectronics.TinyCLR.Native.dll</HintPath>

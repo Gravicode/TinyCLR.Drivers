@@ -113,7 +113,7 @@ namespace TinyCLR.Drivers.Modules.Buttons
             this.DigitalIn.SetDriveMode(resistor);
             this.DigitalIn.DebounceTimeout = new TimeSpan(0,0,0, debounceDuration);
 
-            this.DigitalIn.Write(GpioPinValue.Low);
+            //this.DigitalIn.Write(GpioPinValue.Low);
             this.DigitalIn.ValueChanged += DigitalIn_ValueChanged;
             // if we terminate in ground, we need to pull the port high to test for circuit completion, otherwise down.
             //DigitalIn = device.CreateDigitalInputPort(inputPin, InterruptMode.EdgeBoth, resistor, debounceDuration);
