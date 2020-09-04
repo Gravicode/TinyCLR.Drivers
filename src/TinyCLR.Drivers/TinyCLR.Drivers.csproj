@@ -40,10 +40,13 @@
     <Compile Include="Controllers\Pid\StandardPidController.cs" />
     <Compile Include="Core\ArrayEventArgs.cs" />
     <Compile Include="Core\ResistorMode.cs" />
+    <Compile Include="Helpers\Measurements\WeightMeasurement.cs" />
+    <Compile Include="Helpers\Measurements\Weight.cs" />
     <Compile Include="Interface\IPidController.cs" />
     <Compile Include="Interface\IRotaryEncoder.cs" />
     <Compile Include="Interface\IRotaryEncoderWithButton.cs" />
     <Compile Include="Interface\ISwitch.cs" />
+    <Compile Include="Interface\ITemperatureSensor.cs" />
     <Compile Include="Interface\IToneGenerator.cs" />
     <Compile Include="Modules\Buttons\PushButton.cs" />
     <Compile Include="Modules\HallEffect\LinearHallEffectTachometer.cs" />
@@ -58,6 +61,7 @@
     <Compile Include="Modules\Switches\DipSwitch.cs" />
     <Compile Include="Modules\Switches\SpdtSwitch.cs" />
     <Compile Include="Modules\Switches\SpstSwitch.cs" />
+    <Compile Include="Modules\Temperature\AnalogTemperature.cs" />
     <Compile Include="System\EventHandler.cs" />
     <Compile Include="Core\CircuitTerminationType.cs" />
     <Compile Include="Core\Color.cs" />
@@ -85,6 +89,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="GHIElectronics.TinyCLR.Devices.Adc, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GHIElectronics.TinyCLR.Devices.Adc.2.0.0-rc2\lib\net452\GHIElectronics.TinyCLR.Devices.Adc.dll</HintPath>
+    </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Devices.Gpio, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GHIElectronics.TinyCLR.Devices.Gpio.2.0.0-rc2\lib\net452\GHIElectronics.TinyCLR.Devices.Gpio.dll</HintPath>
     </Reference>
