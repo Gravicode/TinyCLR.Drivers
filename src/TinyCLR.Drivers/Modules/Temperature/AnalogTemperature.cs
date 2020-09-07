@@ -4,6 +4,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
+using TinyCLR.Drivers.Core;
 using TinyCLR.Drivers.Interface;
 
 namespace TinyCLR.Drivers.Modules.Temperature
@@ -34,7 +35,7 @@ namespace TinyCLR.Drivers.Modules.Temperature
     public class AnalogTemperature : ITemperatureSensor
 
     {
-        SamplingSetting samplingSetting;
+        AnalogSamplingSetting samplingSetting;
         public bool IsSampling { get; set; }
         /// <summary>
         /// Raised when the value of the reading changes.
@@ -176,7 +177,7 @@ namespace TinyCLR.Drivers.Modules.Temperature
             Calibration calibration = null
             )
         {
-            samplingSetting = new SamplingSetting();
+            samplingSetting = new AnalogSamplingSetting();
             // : this(device.CreateAnalogInputPort(analogPin), sensorType, calibration)
             var adc = AdcController.FromName(AdcControllerName);
             var analog = adc.OpenChannel(analogPin);
@@ -297,6 +298,7 @@ namespace TinyCLR.Drivers.Modules.Temperature
             samplingSetting.sampleCount = sampleCount;
             samplingSetting.sampleIntervalDuration = sampleIntervalDuration;
             samplingSetting.standbyDuration = standbyDuration;
+            IsSampling = true;
             var task = new Thread(new ThreadStart(StartSampling));
             task.Start();
             
@@ -356,10 +358,5 @@ namespace TinyCLR.Drivers.Modules.Temperature
 
         #endregion Methods
     }
-    struct SamplingSetting
-    {
-        public int sampleCount;
-        public int sampleIntervalDuration;
-        public int standbyDuration;
-    }
+    
 }
