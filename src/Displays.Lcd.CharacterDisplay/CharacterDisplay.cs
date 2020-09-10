@@ -284,16 +284,23 @@ namespace Meadow.TinyCLR.Displays.Lcd
         {
             SendByte(GetLineAddress(line), LCD_INSTRUCTION);
         }
-        public static string padRight(int n, string s)
+        public static string padRight(string text, int n, string s)
         {
-            return string.Format("%-" + n + "s", s);
+            StringBuilder sb = new StringBuilder();
+            sb.Append(text);
+            var iterate = n - s.Length;
+            for(int i = 0; i < iterate; i++)
+            {
+                sb.Append(s);
+            }
+            return sb.ToString();
         }
         public void WriteLine(string text, byte lineNumber)
         {
             SetLineAddress(lineNumber);
 
             // Instead of clearing the line first, pad it with empty space on the end
-            var screenText = padRight(DisplayConfig.Width, " ");
+            var screenText = padRight(text, DisplayConfig.Width, " ");
             if (screenText.Length > DisplayConfig.Width)
             {
                 
