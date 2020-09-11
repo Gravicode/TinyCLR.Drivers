@@ -48,6 +48,7 @@
     <Compile Include="Core\PwmChannelInfo.cs" />
     <Compile Include="Core\ResistorMode.cs" />
     <Compile Include="Displays\DisplayBase.cs" />
+    <Compile Include="Displays\SevenSegment.cs" />
     <Compile Include="Generators\SoftPwmPort.cs" />
     <Compile Include="Helpers\Checksum.cs" />
     <Compile Include="Helpers\DebugInformation.cs" />
