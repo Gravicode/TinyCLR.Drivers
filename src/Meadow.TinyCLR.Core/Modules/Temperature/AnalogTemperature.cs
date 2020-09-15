@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading;
 using Meadow.TinyCLR.Core;
 using Meadow.TinyCLR.Interface;
+using Meadow.Peripherals.Sensors.Temperature;
+using Meadow.Peripherals.Sensors.Atmospheric;
 
 namespace Meadow.TinyCLR.Modules.Temperature
 {
@@ -40,8 +42,8 @@ namespace Meadow.TinyCLR.Modules.Temperature
         /// <summary>
         /// Raised when the value of the reading changes.
         /// </summary>
-        public event TempChangedHandler Updated = delegate { };
-
+        //public event TempChangedHandler Updated = delegate { };
+        public event AtmosphericConditionChangeEventHandler Updated = delegate { };
         #region Local classes
 
         /// <summary>
@@ -252,6 +254,8 @@ namespace Meadow.TinyCLR.Modules.Temperature
                                   calibration);
         }
 
+        
+
         #endregion Constructors
 
         #region Methods
@@ -327,7 +331,7 @@ namespace Meadow.TinyCLR.Modules.Temperature
             IsSampling = false;
             RaiseEventsAndNotify
             (
-                new AtmosphericConditions(average, 0, 0)
+                new AtmosphericConditionChangeResult(new AtmosphericConditions(average, 0, 0), null)
             );
         }
         /// <summary>
@@ -338,9 +342,9 @@ namespace Meadow.TinyCLR.Modules.Temperature
             IsSampling = false;
         }
 
-        protected void RaiseEventsAndNotify(AtmosphericConditions changeResult)
+        protected void RaiseEventsAndNotify(AtmosphericConditionChangeResult changeResult)
         {
-            Updated.Invoke(changeResult);
+            Updated.Invoke(this,changeResult);
             //base.NotifyObservers(changeResult);
         }
 
