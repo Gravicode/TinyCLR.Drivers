@@ -58,12 +58,14 @@
     <Compile Include="Helpers\DebugInformation.cs" />
     <Compile Include="Helpers\Measurements\Weight.cs" />
     <Compile Include="Helpers\Measurements\WeightMeasurement.cs" />
+    <Compile Include="Interface\DistanceEventArgs.cs" />
     <Compile Include="Interface\IButton.cs" />
     <Compile Include="Interface\IDCMotor.cs" />
     <Compile Include="Interface\IDisplay.cs" />
     <Compile Include="Interface\ILed.cs" />
     <Compile Include="Interface\IPidController.cs" />
     <Compile Include="Interface\IPwmPort.cs" />
+    <Compile Include="Interface\IRangeFinder.cs" />
     <Compile Include="Interface\IRelay.cs" />
     <Compile Include="Interface\IRgbLed.cs" />
     <Compile Include="Interface\IRotaryEncoder.cs" />
