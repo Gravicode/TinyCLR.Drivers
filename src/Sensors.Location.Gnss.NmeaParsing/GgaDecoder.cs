@@ -1,8 +1,10 @@
 ﻿using Meadow.Peripherals.Sensors.Location.Gnss;
+using Meadow.TinyCLR.Core;
 using System;
 
 namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
 {
+    public delegate void GnssPositionInfoHandler(object sender, GnssPositionInfo e);
     // TODO: Should this be a struct with fields?
     /// <summary>
     /// Decoder for GGA messages.
@@ -12,7 +14,7 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
         /// <summary>
         /// Position update received event.
         /// </summary>
-        public event EventHandler<GnssPositionInfo> PositionReceived = delegate { };
+        public event GnssPositionInfoHandler PositionReceived = delegate { };
 
         /// <summary>
         /// Prefix for the GGA decoder.
@@ -37,7 +39,7 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
             // make sure all fields are present
             for (var index = 0; index <= 7; index++) {
                 if (string.IsNullOrEmpty(sentence.DataElements[index].ToString())) {
-                    //Console.WriteLine("Not all elements present");
+                    //Debug.WriteLine("Not all elements present");
                     // TODO: should we throw an exception and have callers wrap in a try/catch?
                     // problem today is that it just quietly returns
                     return;
@@ -46,21 +48,21 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
 
             var location = new GnssPositionInfo();
             location.TalkerID = sentence.TalkerID;
-            location.TimeOfReading = NmeaUtilities.TimeOfReading(null, sentence.DataElements[0]);
-            location.Position.Latitude = NmeaUtilities.DegreesMinutesDecode(sentence.DataElements[1], sentence.DataElements[2]);
-            location.Position.Longitude = NmeaUtilities.DegreesMinutesDecode(sentence.DataElements[3], sentence.DataElements[4]);
-            location.FixQuality = (FixType)Converters.Integer(sentence.DataElements[5]);
+            location.TimeOfReading = NmeaUtilities.TimeOfReading(null, sentence.DataElements[0].ToString());
+            location.Position.Latitude = NmeaUtilities.DegreesMinutesDecode(sentence.DataElements[1].ToString(), sentence.DataElements[2].ToString());
+            location.Position.Longitude = NmeaUtilities.DegreesMinutesDecode(sentence.DataElements[3].ToString(), sentence.DataElements[4].ToString());
+            location.FixQuality = (FixType)Converters.Integer(sentence.DataElements[5].ToString());
 
             int numberOfSatellites;
-            if (int.TryParse(sentence.DataElements[6], out numberOfSatellites)) {
+            if (int.TryParse(sentence.DataElements[6].ToString(), out numberOfSatellites)) {
                 location.NumberOfSatellites = numberOfSatellites;
             }
-            decimal horizontalDilutionOfPrecision;
-            if (decimal.TryParse(sentence.DataElements[7], out horizontalDilutionOfPrecision)) {
+            double horizontalDilutionOfPrecision;
+            if (double.TryParse(sentence.DataElements[7].ToString(), out horizontalDilutionOfPrecision)) {
                 location.HorizontalDilutionOfPrecision = horizontalDilutionOfPrecision;
             }
-            decimal altitude;
-            if (decimal.TryParse(sentence.DataElements[8], out altitude)) {
+            double altitude;
+            if (double.TryParse(sentence.DataElements[8].ToString(), out altitude)) {
                 location.Position.Altitude = altitude;
             }
             PositionReceived(this, location);

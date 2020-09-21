@@ -25,11 +25,11 @@ namespace Meadow.Peripherals.Sensors.Location.Gnss
 
     public string[] SatellitesUsedForFix { get; set; }
 
-    public Decimal DilutionOfPrecision { get; set; }
+    public double DilutionOfPrecision { get; set; }
 
-    public Decimal HorizontalDilutionOfPrecision { get; set; }
+    public double HorizontalDilutionOfPrecision { get; set; }
 
-    public Decimal VerticalDilutionOfPrecision { get; set; }
+    public double VerticalDilutionOfPrecision { get; set; }
 
     public override string ToString()
     {

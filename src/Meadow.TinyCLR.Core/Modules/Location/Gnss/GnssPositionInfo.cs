@@ -20,9 +20,9 @@ namespace Meadow.Peripherals.Sensors.Location.Gnss
 
     public bool Valid { get; set; }
 
-    public Decimal SpeedInKnots { get; set; }
+    public double SpeedInKnots { get; set; }
 
-    public Decimal CourseHeading { get; set; }
+    public double CourseHeading { get; set; }
 
     public CardinalDirection MagneticVariation { get; set; } = CardinalDirection.Unknown;
 
@@ -32,7 +32,7 @@ namespace Meadow.Peripherals.Sensors.Location.Gnss
 
     public int NumberOfSatellites { get; set; }
 
-    public Decimal HorizontalDilutionOfPrecision { get; set; }
+    public double HorizontalDilutionOfPrecision { get; set; }
 
     public override string ToString()
     {
@@ -49,7 +49,7 @@ namespace Meadow.Peripherals.Sensors.Location.Gnss
       stringBuilder1.Append("\tLongitude: " + (this.Position?.Longitude?.ToString() ?? "null") + "\r\n");
       StringBuilder stringBuilder3 = stringBuilder1;
       SphericalPositionInfo position = this.Position;
-      Decimal valueOrDefault;
+      double valueOrDefault;
       string str2;
       if (position == null)
       {
@@ -57,8 +57,8 @@ namespace Meadow.Peripherals.Sensors.Location.Gnss
       }
       else
       {
-        Decimal altitude = position.Altitude;
-        ref Decimal local2 = ref altitude;
+        var altitude = position.Altitude;
+        ref double local2 = ref altitude;
        
           valueOrDefault = local2;
           str2 = valueOrDefault.ToString("f2");
@@ -69,8 +69,8 @@ namespace Meadow.Peripherals.Sensors.Location.Gnss
       string str3 = "\tAltitude: " + str2 + "\r\n";
       stringBuilder3.Append(str3);
       StringBuilder stringBuilder4 = stringBuilder1;
-      Decimal speedInKnots = this.SpeedInKnots;
-      ref Decimal local3 = ref speedInKnots;
+      double speedInKnots = this.SpeedInKnots;
+      ref double local3 = ref speedInKnots;
       string str4;
      
         valueOrDefault = local3;
@@ -81,8 +81,8 @@ namespace Meadow.Peripherals.Sensors.Location.Gnss
       string str5 = "\tSpeed in Knots: " + str4 + "\r\n";
       stringBuilder4.Append(str5);
       StringBuilder stringBuilder5 = stringBuilder1;
-      Decimal courseHeading = this.CourseHeading;
-      ref Decimal local4 = ref courseHeading;
+      double courseHeading = this.CourseHeading;
+      ref double local4 = ref courseHeading;
       string str6;
       
         valueOrDefault = local4;
@@ -104,8 +104,8 @@ namespace Meadow.Peripherals.Sensors.Location.Gnss
       string str9 = "\tFix quality: " + (local6.ToString()) + "\r\n";
       stringBuilder7.Append(str9);
       StringBuilder stringBuilder8 = stringBuilder1;
-      Decimal dilutionOfPrecision = this.HorizontalDilutionOfPrecision;
-      ref Decimal local7 = ref dilutionOfPrecision;
+      double dilutionOfPrecision = this.HorizontalDilutionOfPrecision;
+      ref double local7 = ref dilutionOfPrecision;
       string str10;
      
         valueOrDefault = local7;

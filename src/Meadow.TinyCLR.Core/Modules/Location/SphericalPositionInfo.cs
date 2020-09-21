@@ -16,6 +16,6 @@ namespace Meadow.Peripherals.Sensors.Location
 
     public DegreesMinutesSecondsPosition Longitude { get; set; }
 
-    public Decimal Altitude { get; set; }
+    public double Altitude { get; set; }
   }
 }

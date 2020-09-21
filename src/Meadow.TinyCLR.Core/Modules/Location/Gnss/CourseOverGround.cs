@@ -19,13 +19,13 @@ namespace Meadow.Peripherals.Sensors.Location.Gnss
 
     public DateTime TimeOfReading { get; set; }
 
-    public Decimal TrueHeading { get; set; }
+    public double TrueHeading { get; set; }
 
-    public Decimal MagneticHeading { get; set; }
+    public double MagneticHeading { get; set; }
 
-    public Decimal Knots { get; set; }
+    public double Knots { get; set; }
 
-    public Decimal Kph { get; set; }
+    public double Kph { get; set; }
 
     public override string ToString()
     {

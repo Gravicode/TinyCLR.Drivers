@@ -3,6 +3,7 @@ using Meadow.Peripherals.Sensors.Location.Gnss;
 
 namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
 {
+  
     /// <summary>
     /// Process GLL (Geographic position Latitude / Longitude) messages from a
     /// GPS receiver.
@@ -12,7 +13,7 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
         /// <summary>
         /// Event raised when valid GLL data is received.
         /// </summary>
-        public event EventHandler<GnssPositionInfo> GeographicLatitudeLongitudeReceived = delegate { };
+        public event GnssPositionInfoHandler GeographicLatitudeLongitudeReceived = delegate { };
 
         /// <summary>
         /// Prefix for the GLL (Geographic position Latitude / Longitude) decoder.
@@ -43,10 +44,10 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
             //
             var location = new GnssPositionInfo();
             location.TalkerID = sentence.TalkerID;
-            location.Position.Latitude = NmeaUtilities.DegreesMinutesDecode(sentence.DataElements[0], sentence.DataElements[1]);
-            location.Position.Longitude = NmeaUtilities.DegreesMinutesDecode(sentence.DataElements[2], sentence.DataElements[3]);
-            location.TimeOfReading = NmeaUtilities.TimeOfReading(null, sentence.DataElements[4]);
-            location.Valid = (sentence.DataElements[5].ToLower() == "a");
+            location.Position.Latitude = NmeaUtilities.DegreesMinutesDecode(sentence.DataElements[0].ToString(), sentence.DataElements[1].ToString());
+            location.Position.Longitude = NmeaUtilities.DegreesMinutesDecode(sentence.DataElements[2].ToString(), sentence.DataElements[3].ToString());
+            location.TimeOfReading = NmeaUtilities.TimeOfReading(null, sentence.DataElements[4].ToString());
+            location.Valid = (sentence.DataElements[5].ToString().ToLower() == "a");
             GeographicLatitudeLongitudeReceived(this, location);
         }
     }

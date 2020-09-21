@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using Meadow.Peripherals.Sensors.Location.Gnss;
 
 namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
 {
+    public delegate void SatellitesInViewHandler(object sender, SatellitesInView e);
     /// <summary>
     /// Process the Satellites in view messages from a GPS module.
     /// </summary>
@@ -23,7 +23,7 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
         /// Event raised when valid GSV data is received.
         /// </summary>
         //public event EventHandler<Satellite[]> SatellitesInViewReceived = delegate { };
-        public event EventHandler<SatellitesInView> SatellitesInViewReceived = delegate { };
+        public event SatellitesInViewHandler SatellitesInViewReceived = delegate { };
 
         /// <summary>
         /// Current sentence being processed, 0 indicates nothing being processed.
@@ -74,16 +74,16 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
         /// https://gpsd.gitlab.io/gpsd/NMEA.html#_gsv_satellites_in_view
         public void Process(NmeaSentence sentence)
         {
-            //if (DebugMode) { Console.WriteLine($"GSV Parser, currentSentence:{_currentSentence}, totalSentences:{_totalSentences}"); }
+            //if (DebugMode) { Debug.WriteLine($"GSV Parser, currentSentence:{_currentSentence}, totalSentences:{_totalSentences}"); }
 
             // Sentence number, 1-9 of this GSV message within current sentence group
             int thisSentenceNumber;
-            if (!int.TryParse(sentence.DataElements[1], out thisSentenceNumber)) {
-                //if (DebugMode) { Console.WriteLine("Could not parse sentence number"); }
+            if (!int.TryParse(sentence.DataElements[1].ToString(), out thisSentenceNumber)) {
+                //if (DebugMode) { Debug.WriteLine("Could not parse sentence number"); }
                 return;
             }
 
-            //if (DebugMode) { Console.WriteLine($"thisSentenceNumber:{thisSentenceNumber}"); }
+            //if (DebugMode) { Debug.WriteLine($"thisSentenceNumber:{thisSentenceNumber}"); }
 
             // if it's the first time we've gotten a sentence in this sequence
             if (_currentSentence == 0) {
@@ -95,9 +95,9 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
 
                     // total number of satellites
                     int totalNumberOfSatellites;
-                    if (!int.TryParse(sentence.DataElements[2], out totalNumberOfSatellites)) {
+                    if (!int.TryParse(sentence.DataElements[2].ToString(), out totalNumberOfSatellites)) {
                         //
-                        //if (DebugMode) { Console.WriteLine("Could not parse total number of satellites, bailing out."); }
+                        //if (DebugMode) { Debug.WriteLine("Could not parse total number of satellites, bailing out."); }
                         CleanUp();
                         return;
                     }
@@ -107,12 +107,12 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
                     // iterate our sentence count so we don't parse this out again
                     _currentSentence = 1;
                     // how many sentences to expect in this group
-                    _totalSentences = int.Parse(sentence.DataElements[0]);
+                    _totalSentences = int.Parse(sentence.DataElements[0].ToString());
 
                     // start our index
                     _currentSatelliteIndex = 0;
 
-                    //if (DebugMode) { Console.WriteLine($"Total number of sentences: {_totalSentences}"); }
+                    //if (DebugMode) { Debug.WriteLine($"Total number of sentences: {_totalSentences}"); }
                 }
             }
             // make sure we're getting these in order (BryanC note: i'm not sure this is necessary)
@@ -125,34 +125,34 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
                 // for each satellite within the sentence
                 int currentSatIndex = 0;
                 int numberOfSatsInSentence = (sentence.DataElements.Count - 3) / 4;
-                //if (DebugMode) { Console.WriteLine($"# of satellites in this sentence: {numberOfSatsInSentence}"); }
+                //if (DebugMode) { Debug.WriteLine($"# of satellites in this sentence: {numberOfSatsInSentence}"); }
                 for ( var currentSatellite = 0; currentSatellite < numberOfSatsInSentence; currentSatellite++) {
-                    //if (DebugMode) { Console.WriteLine($"About to parse out satellite: {currentSatellite}"); }
+                    //if (DebugMode) { Debug.WriteLine($"About to parse out satellite: {currentSatellite}"); }
                     // calculate index (for each satellite)
                     currentSatIndex = (currentSatellite * 4) + 3;
 
-                    //if (DebugMode) { Console.WriteLine($"Satellite index in sentence: {currentSatIndex}"); }
+                    //if (DebugMode) { Debug.WriteLine($"Satellite index in sentence: {currentSatIndex}"); }
 
                     sat = new Satellite();
 
-                    if (int.TryParse(sentence.DataElements[currentSatIndex + 0], out id)) {
+                    if (int.TryParse(sentence.DataElements[currentSatIndex + 0].ToString(), out id)) {
                         sat.ID = id;
-                        //Console.WriteLine($"Sat ID: {sat.ID}");
+                        //Debug.WriteLine($"Sat ID: {sat.ID}");
                     }
-                    if (int.TryParse(sentence.DataElements[currentSatIndex + 1], out elevation)) {
+                    if (int.TryParse(sentence.DataElements[currentSatIndex + 1].ToString(), out elevation)) {
                         sat.Elevation = elevation;
-                        //Console.WriteLine($"Sat Elevation: {sat.Elevation}");
+                        //Debug.WriteLine($"Sat Elevation: {sat.Elevation}");
                     }
-                    if (int.TryParse(sentence.DataElements[currentSatIndex + 2], out azimuth)) {
+                    if (int.TryParse(sentence.DataElements[currentSatIndex + 2].ToString(), out azimuth)) {
                         sat.Azimuth = azimuth;
-                        //Console.WriteLine($"Sat Azimuth: {sat.Azimuth}");
+                        //Debug.WriteLine($"Sat Azimuth: {sat.Azimuth}");
                     }
-                    if (int.TryParse(sentence.DataElements[currentSatIndex + 3], out signalToNoiseRatio)) {
+                    if (int.TryParse(sentence.DataElements[currentSatIndex + 3].ToString(), out signalToNoiseRatio)) {
                         sat.SignalTolNoiseRatio = signalToNoiseRatio;
-                        //Console.WriteLine($"Sat SignalTolNoiseRatio: {sat.SignalTolNoiseRatio}");
+                        //Debug.WriteLine($"Sat SignalTolNoiseRatio: {sat.SignalTolNoiseRatio}");
                     }
 
-                    //if (DebugMode) { Console.WriteLine($"Adding satellite: {currentSatellite}, total satellite index: {_currentSatelliteIndex}"); }
+                    //if (DebugMode) { Debug.WriteLine($"Adding satellite: {currentSatellite}, total satellite index: {_currentSatelliteIndex}"); }
                     //this._satelliteList.Add(sat);
 
                     _satellites[_currentSatelliteIndex] = sat;
@@ -170,12 +170,12 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
                 // if we got them all
                 if (_currentSatelliteIndex == _satellites.Length) {
 
-                    //if (DebugMode) { Console.WriteLine("Done with satellites in this sentence."); }
+                    //if (DebugMode) { Debug.WriteLine("Done with satellites in this sentence."); }
                     SatellitesInViewReceived(this, new SatellitesInView(_satellites) { TalkerID = sentence.TalkerID });
                     CleanUp();
                 }
             } else {
-                //if (DebugMode) { Console.WriteLine($"Why are we here?"); }
+                //if (DebugMode) { Debug.WriteLine($"Why are we here?"); }
                 //
                 //  If the application gets here then there is a problem with
                 //  the sequencing of the sentences.  Throw away the data received

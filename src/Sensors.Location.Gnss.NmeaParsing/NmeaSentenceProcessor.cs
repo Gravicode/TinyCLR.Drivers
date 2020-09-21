@@ -1,7 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using Meadow.Utilities;
 using Meadow.Peripherals.Sensors.Location.Gnss;
+using System.Collections;
+using System.Diagnostics;
 
 namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
 {
@@ -27,7 +29,7 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
         /// <summary>
         /// NMEA decoders available to the GPS.
         /// </summary>
-        private readonly Dictionary<string, INmeaDecoder/*<IGnssResult>*/> decoders = new Dictionary<string, INmeaDecoder/*<IGnssResult>*/>();
+        private readonly Hashtable decoders = new Hashtable(); // Dictionary<string, INmeaDecoder/*<IGnssResult>*/>();
 
         public bool DebugMode { get; set; } = false;
 
@@ -44,8 +46,8 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
         /// <param name="decoder">NMEA decoder.</param>
         public void RegisterDecoder(INmeaDecoder/*<IGnssResult>*/ decoder)
         {
-            Console.WriteLine($"Registering decoder: {decoder.Prefix}");
-            if (decoders.ContainsKey(decoder.Prefix)) {
+            Debug.WriteLine($"Registering decoder: {decoder.Prefix}");
+            if (decoders.Contains(decoder.Prefix)) {
                 throw new Exception(decoder.Prefix + " already registered.");
             }
             decoders.Add(decoder.Prefix, decoder);
@@ -60,28 +62,28 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
         /// <param name="line">GPS text for processing.</param>
         public void ProcessNmeaMessage(string line)
         {
-            if (DebugMode) { Console.WriteLine("NmeaSentenceProcessor.ProcessNmeaMessage"); }
+            if (DebugMode) { Debug.WriteLine("NmeaSentenceProcessor.ProcessNmeaMessage"); }
 
             // create a NmeaSentence from the sentence string
             NmeaSentence sentence;
             try {
                 sentence = NmeaSentence.From(line);
             } catch (Exception e) {
-                if (DebugMode) { Console.WriteLine($"Could not parse message. {e.Message}"); }
+                if (DebugMode) { Debug.WriteLine($"Could not parse message. {e.Message}"); }
                 return;
             }
 
-            //Console.WriteLine($"Sentence parsed: {sentence.ToString()}");
+            //Debug.WriteLine($"Sentence parsed: {sentence.ToString()}");
 
             INmeaDecoder decoder;
-            if (decoders.ContainsKey(sentence.Prefix)) {
-                decoder = decoders[sentence.Prefix];
+            if (decoders.Contains(sentence.Prefix)) {
+                decoder = (INmeaDecoder)decoders[sentence.Prefix];
                 if (decoder != null) {
-                    if (DebugMode) { Console.WriteLine($"Found appropriate decoder:{decoder.Prefix}"); }
+                    if (DebugMode) { Debug.WriteLine($"Found appropriate decoder:{decoder.Prefix}"); }
                     decoder.Process(sentence);
                 }
             } else {
-                if (DebugMode) { Console.WriteLine($"Could not find appropriate decoder for {sentence.Prefix}"); }
+                if (DebugMode) { Debug.WriteLine($"Could not find appropriate decoder for {sentence.Prefix}"); }
             }
         }
     }

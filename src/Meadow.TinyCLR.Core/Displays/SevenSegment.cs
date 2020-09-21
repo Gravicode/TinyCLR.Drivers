@@ -15,7 +15,7 @@ namespace Meadow.TinyCLR.Core.Displays
         private  GpioPin _portE;
         private  GpioPin _portF;
         private  GpioPin _portG;
-        private  GpioPin _portDecimal;
+        private  GpioPin _portdouble;
         private  bool _isCommonCathode;
         private byte[,] _segments = new byte[17, 7]
         {
@@ -187,11 +187,11 @@ namespace Meadow.TinyCLR.Core.Displays
           int pinE,
           int pinF,
           int pinG,
-          int pinDecimal,
+          int pindouble,
           bool isCommonCathode)
          
         {
-            // : this(device.CreateDigitalOutputPort(pinA), device.CreateDigitalOutputPort(pinB), device.CreateDigitalOutputPort(pinC), device.CreateDigitalOutputPort(pinD), device.CreateDigitalOutputPort(pinE), device.CreateDigitalOutputPort(pinF), device.CreateDigitalOutputPort(pinG), device.CreateDigitalOutputPort(pinDecimal), isCommonCathode)
+            // : this(device.CreateDigitalOutputPort(pinA), device.CreateDigitalOutputPort(pinB), device.CreateDigitalOutputPort(pinC), device.CreateDigitalOutputPort(pinD), device.CreateDigitalOutputPort(pinE), device.CreateDigitalOutputPort(pinF), device.CreateDigitalOutputPort(pinG), device.CreateDigitalOutputPort(pindouble), isCommonCathode)
             var gpio = GpioController.GetDefault();
             var PinA = gpio.OpenPin(pinA);
             PinA.SetDriveMode(GpioPinDriveMode.Output);
@@ -214,8 +214,8 @@ namespace Meadow.TinyCLR.Core.Displays
             var PinG = gpio.OpenPin(pinG);
             PinG.SetDriveMode(GpioPinDriveMode.Output);
 
-            var PinDecimal = gpio.OpenPin(pinDecimal);
-            PinDecimal.SetDriveMode(GpioPinDriveMode.Output);
+            var Pindouble = gpio.OpenPin(pindouble);
+            Pindouble.SetDriveMode(GpioPinDriveMode.Output);
 
             Setup(PinA,
           PinB,
@@ -224,7 +224,7 @@ namespace Meadow.TinyCLR.Core.Displays
           PinE,
           PinF,
           PinG,
-          PinDecimal,
+          Pindouble,
            isCommonCathode);
         }
 
@@ -236,7 +236,7 @@ namespace Meadow.TinyCLR.Core.Displays
           GpioPin portE,
           GpioPin portF,
           GpioPin portG,
-          GpioPin portDecimal,
+          GpioPin portdouble,
           bool isCommonCathode)
         {
             Setup( portA,
@@ -246,7 +246,7 @@ namespace Meadow.TinyCLR.Core.Displays
           portE,
           portF,
           portG,
-          portDecimal,
+          portdouble,
            isCommonCathode);
         }
         void Setup(GpioPin portA,
@@ -256,7 +256,7 @@ namespace Meadow.TinyCLR.Core.Displays
           GpioPin portE,
           GpioPin portF,
           GpioPin portG,
-          GpioPin portDecimal,
+          GpioPin portdouble,
           bool isCommonCathode)
         {
             this._portA = portA;
@@ -266,12 +266,12 @@ namespace Meadow.TinyCLR.Core.Displays
             this._portE = portE;
             this._portF = portF;
             this._portG = portG;
-            this._portDecimal = portDecimal;
+            this._portdouble = portdouble;
             this._isCommonCathode = isCommonCathode;
         }
-        public void SetDisplay(SevenSegment.CharacterType character, bool showDecimal = false)
+        public void SetDisplay(SevenSegment.CharacterType character, bool showdouble = false)
         {
-            this._portDecimal.Write((this._isCommonCathode ? showDecimal : !showDecimal) ? GpioPinValue.High : GpioPinValue.Low);
+            this._portdouble.Write((this._isCommonCathode ? showdouble : !showdouble) ? GpioPinValue.High : GpioPinValue.Low);
             int index = (int)character;
             this._portA.Write((this.IsEnabled(this._segments[index, 0])) ? GpioPinValue.High : GpioPinValue.Low );
             this._portB.Write((this.IsEnabled(this._segments[index, 1])) ? GpioPinValue.High : GpioPinValue.Low );
@@ -284,7 +284,7 @@ namespace Meadow.TinyCLR.Core.Displays
 
         private bool IsEnabled(byte value) => !this._isCommonCathode ? value == (byte)0 : value == (byte)1;
 
-        public void SetDisplay(char character, bool showDecimal = false)
+        public void SetDisplay(char character, bool showdouble = false)
         {
             SevenSegment.CharacterType character1;
             if (character == ' ')
@@ -299,7 +299,7 @@ namespace Meadow.TinyCLR.Core.Displays
                     throw new ArgumentOutOfRangeException();
                 character1 = (SevenSegment.CharacterType)((int)character - 97 + 10);
             }
-            this.SetDisplay(character1, showDecimal);
+            this.SetDisplay(character1, showdouble);
         }
 
         public enum CharacterType

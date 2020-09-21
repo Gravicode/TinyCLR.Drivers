@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,6 +43,7 @@
     <Compile Include="Core\ArrayEventArgs.cs" />
     <Compile Include="Core\ByteOrder.cs" />
     <Compile Include="Core\CircuitTerminationType.cs" />
+    <Compile Include="Core\FloatChangeResult.cs" />
     <Compile Include="Core\IPinDefinitions.cs" />
     <Compile Include="Core\DigitalChannelInfo.cs" />
     <Compile Include="Core\Color.cs" />
@@ -106,6 +108,7 @@
     <Compile Include="Modules\Location\Gnss\Satellite.cs" />
     <Compile Include="Modules\Location\Gnss\SatellitesInView.cs" />
     <Compile Include="Modules\Location\SphericalPositionInfo.cs" />
+    <Compile Include="Modules\Moisture\IMoistureSensor.cs" />
     <Compile Include="Modules\Motors\HBridgeMotor.cs" />
     <Compile Include="Modules\Relays\Relay.cs" />
     <Compile Include="Modules\Rotary\RotaryEncoder.cs" />

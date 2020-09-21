@@ -3,6 +3,7 @@ using Meadow.Peripherals.Sensors.Location.Gnss;
 
 namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
 {
+    public delegate void CourseOverGroundHandler(object sender, CourseOverGround e);
     /// <summary>
     /// Parses VTG (Velocity Made Good) messages from a GPS/GNSS receiver.
     /// </summary>
@@ -11,7 +12,7 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
         /// <summary>
         /// Event to be raised when a course and velocity message is received and decoded.
         /// </summary>
-        public event EventHandler<CourseOverGround> CourseAndVelocityReceived = delegate { };
+        public event CourseOverGroundHandler CourseAndVelocityReceived = delegate { };
 
         /// <summary>
         /// Prefix for the VTG decoder.
@@ -35,29 +36,29 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
         /// <param name="sentence">String array of the message components for a VTG message.</param>
         public void Process(NmeaSentence sentence)
         {
-            //Console.WriteLine($"VTGDecoder.Process");
+            //Debug.WriteLine($"VTGDecoder.Process");
 
             var course = new CourseOverGround();
 
             course.TalkerID = sentence.TalkerID;
 
-            decimal trueHeading;
-            if (decimal.TryParse(sentence.DataElements[0], out trueHeading)) {
+            double trueHeading;
+            if (double.TryParse(sentence.DataElements[0].ToString(), out trueHeading)) {
                 course.TrueHeading = trueHeading;
             }
-            decimal magneticHeading;
-            if (decimal.TryParse(sentence.DataElements[2], out magneticHeading)) {
+            double magneticHeading;
+            if (double.TryParse(sentence.DataElements[2].ToString(), out magneticHeading)) {
                 course.MagneticHeading = magneticHeading;
             }
-            decimal knots;
-            if (decimal.TryParse(sentence.DataElements[4], out knots)) {
+            double knots;
+            if (double.TryParse(sentence.DataElements[4].ToString(), out knots)) {
                 course.Knots = knots;
             }
-            decimal kph;
-            if (decimal.TryParse(sentence.DataElements[6], out kph)) {
+            double kph;
+            if (double.TryParse(sentence.DataElements[6].ToString(), out kph)) {
                 course.Kph = kph;
             }
-            //Console.WriteLine($"VTG process finished: trueHeading:{course.TrueHeading}, magneticHeading:{course.MagneticHeading}, knots:{course.Knots}, kph:{course.Kph}");
+            //Debug.WriteLine($"VTG process finished: trueHeading:{course.TrueHeading}, magneticHeading:{course.MagneticHeading}, knots:{course.Knots}, kph:{course.Kph}");
             CourseAndVelocityReceived(this, course);
         }
 

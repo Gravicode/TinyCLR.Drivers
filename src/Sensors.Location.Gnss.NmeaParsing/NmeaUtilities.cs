@@ -29,7 +29,7 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
                     year = 2000 + ((int)d - (day * 10000) - (month * 100));
                 } else {
                     //throw new ArgumentException("Unable to decode the date");
-                    return null;
+                    return DateTime.MinValue;
                 }
             }
             //
@@ -45,7 +45,7 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
                 milliseconds = (int)(t - (int)t) * 100;
             } else {
                 //throw new ArgumentException("Unable to decode the time");
-                return null;
+                return DateTime.MinValue;
             }
             return new DateTime(year, month, day, hour, minute, second, milliseconds);
         }
@@ -59,10 +59,10 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
         /// <returns>DMPosition in degrees and minutes.</returns>
         public static DegreesMinutesSecondsPosition DegreesMinutesDecode(string location, string direction)
         {
-            decimal loc = 0;
+            double loc = 0;
             var position = new DegreesMinutesSecondsPosition();
 
-            if (decimal.TryParse(location, out loc)) {
+            if (double.TryParse(location, out loc)) {
                 position.Degrees = (int)(loc / 100);
                 position.Minutes = loc - (position.Degrees * 100);
                 switch (direction.ToLower()) {
@@ -83,7 +83,7 @@ namespace Meadow.TinyCLR.Sensors.Location.Gnss.NmeaParsing
                         break;
                 }
             } else {
-                //Console.WriteLine($"Could not parse DegreesMinutes; location:'{location}', direction:'{direction}'");
+                //Debug.WriteLine($"Could not parse DegreesMinutes; location:'{location}', direction:'{direction}'");
                 return null;
             }
             return position;

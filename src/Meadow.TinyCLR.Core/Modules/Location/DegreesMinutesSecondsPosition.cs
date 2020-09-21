@@ -15,9 +15,9 @@ namespace Meadow.Peripherals.Sensors.Location
 
     public int Degrees { get; set; }
 
-    public Decimal Minutes { get; set; }
+    public double Minutes { get; set; }
 
-    public Decimal seconds { get; set; }
+    public double seconds { get; set; }
 
     public override string ToString()
     {
