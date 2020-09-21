@@ -40,6 +40,7 @@
     <Compile Include="Controllers\Pid\StandardPidController.cs" />
     <Compile Include="Core\AnalogSamplingSetting.cs" />
     <Compile Include="Core\ArrayEventArgs.cs" />
+    <Compile Include="Core\ByteOrder.cs" />
     <Compile Include="Core\CircuitTerminationType.cs" />
     <Compile Include="Core\IPinDefinitions.cs" />
     <Compile Include="Core\DigitalChannelInfo.cs" />
