@@ -5,8 +5,9 @@
 // Assembly location: D:\experiment\TINYCLR\Meadow.Foundation\Source\Meadow.Foundation.Libraries_and_Frameworks\Sensors.GPS.NMEA\bin\Debug\net472\Meadow.dll
 
 using Meadow.Peripherals.Sensors.Motion;
+using Meadow.TinyCLR.Modules.Spatial;
 using System;
-
+public delegate void SensorVectorEventHandler(object sender, SensorVectorEventArgs e);
 public delegate void AccelerationConditionChangeResultHandler(object sender, AccelerationConditionChangeResult e);
 
 namespace Meadow.Peripherals.Sensors.Motion
@@ -17,4 +18,16 @@ namespace Meadow.Peripherals.Sensors.Motion
 
     event AccelerationConditionChangeResultHandler Updated;
   }
+
+public class SensorVectorEventArgs : EventArgs
+{
+    public SensorVectorEventArgs(Vector lastValue, Vector currentValue)
+        {
+            this.LastNotifiedValue = lastValue;
+            this.CurrentValue = currentValue;
+        }
+
+    public Vector LastNotifiedValue { get; set; }
+    public Vector CurrentValue { get; set; }
+}
 }
