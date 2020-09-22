@@ -109,6 +109,9 @@
     <Compile Include="Modules\Location\Gnss\SatellitesInView.cs" />
     <Compile Include="Modules\Location\SphericalPositionInfo.cs" />
     <Compile Include="Modules\Moisture\IMoistureSensor.cs" />
+    <Compile Include="Modules\Motion\AccelerationConditionChangeResult.cs" />
+    <Compile Include="Modules\Motion\AccelerationConditions.cs" />
+    <Compile Include="Modules\Motion\IAccelerometer.cs" />
     <Compile Include="Modules\Motors\HBridgeMotor.cs" />
     <Compile Include="Modules\Relays\Relay.cs" />
     <Compile Include="Modules\Rotary\RotaryEncoder.cs" />

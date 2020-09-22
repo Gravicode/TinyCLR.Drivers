@@ -88,7 +88,7 @@ namespace Meadow.TinyCLR.Displays
         protected const bool Data = true;
         protected const bool Command = false;
 
-       
+
         /// <summary>
         ///     SSD1306 I2C display
         /// </summary>
@@ -233,11 +233,11 @@ namespace Meadow.TinyCLR.Displays
             DisplayType displayType = DisplayType.OLED128x64)
         {
             var gpio = GpioController.GetDefault();
-             dataCommandPort = gpio.OpenPin(dcPin);
+            dataCommandPort = gpio.OpenPin(dcPin);
             dataCommandPort.SetDriveMode(GpioPinDriveMode.Output);
             dataCommandPort.Write(GpioPinValue.Low);
-            
-             resetPort = gpio.OpenPin(resetPin);
+
+            resetPort = gpio.OpenPin(resetPin);
             resetPort.SetDriveMode(GpioPinDriveMode.Output);
             resetPort.Write(GpioPinValue.High);
 
@@ -259,7 +259,7 @@ namespace Meadow.TinyCLR.Displays
 
             connectionType = ConnectionType.SPI;
 
-            InitSSD1306(displayType); 
+            InitSSD1306(displayType);
         }
 
         /// <summary>
@@ -272,7 +272,7 @@ namespace Meadow.TinyCLR.Displays
         /// </remarks>
         /// <param name="address">Address of the bus on the I2C display.</param>
         /// <param name="displayType">Type of SSD1306 display (default = 128x64 pixel display).</param>
-        public Ssd1306(string i2cBus, 
+        public Ssd1306(string i2cBus,
             byte address = 0x3c, DisplayType displayType = DisplayType.OLED128x64)
         {
             _displayType = displayType;
@@ -286,8 +286,8 @@ namespace Meadow.TinyCLR.Displays
             InitSSD1306(displayType);
         }
 
-        private void InitSSD1306 (DisplayType displayType)
-        { 
+        private void InitSSD1306(DisplayType displayType)
+        {
             switch (displayType)
             {
                 case DisplayType.OLED128x64:
@@ -302,7 +302,7 @@ namespace Meadow.TinyCLR.Displays
                     SendCommands(oled128x32SetupSequence);
                     break;
                 case DisplayType.OLED96x16:
-                    width  = 96;
+                    width = 96;
                     height = 16;
                     SendCommands(oled96x16SetupSequence);
                     break;
@@ -310,12 +310,12 @@ namespace Meadow.TinyCLR.Displays
 
             buffer = new byte[width * height / 8];
 
-            if(connectionType == ConnectionType.SPI)
+            if (connectionType == ConnectionType.SPI)
             {
                 spiReceive = new byte[width * height / 8];
             }
 
-            showPreamble = new byte[] { 0x21, 0x00, (byte)(width - 1), 0x22, 0x00, (byte)(height/8 - 1) };
+            showPreamble = new byte[] { 0x21, 0x00, (byte)(width - 1), 0x22, 0x00, (byte)(height / 8 - 1) };
 
             IgnoreOutOfBoundsPixels = false;
 
@@ -340,7 +340,7 @@ namespace Meadow.TinyCLR.Displays
         {
             if (connectionType == ConnectionType.SPI)
             {
-                dataCommandPort.Write( Command ? GpioPinValue.High: GpioPinValue.Low);
+                dataCommandPort.Write(Command ? GpioPinValue.High : GpioPinValue.Low);
                 spi.Write(new byte[] { command });
             }
             else
@@ -361,7 +361,7 @@ namespace Meadow.TinyCLR.Displays
 
             if (connectionType == ConnectionType.SPI)
             {
-                dataCommandPort.Write(Command ? GpioPinValue.High: GpioPinValue.Low);
+                dataCommandPort.Write(Command ? GpioPinValue.High : GpioPinValue.Low);
                 spi.Write(commands);
             }
             else
@@ -386,7 +386,7 @@ namespace Meadow.TinyCLR.Displays
             if (connectionType == ConnectionType.SPI)
             {
                 dataCommandPort.Write(Data ? GpioPinValue.High : GpioPinValue.Low);
-                spi.TransferFullDuplex( buffer, spiReceive);
+                spi.TransferFullDuplex(buffer, spiReceive);
                 //chipSelectPort, ChipSelectMode.ActiveLow,
             }
             else
@@ -453,7 +453,7 @@ namespace Meadow.TinyCLR.Displays
         /// <param name="colored">True = turn on pixel, false = turn off pixel</param>
         public override void DrawPixel(int x, int y, bool colored)
         {
-            if(_displayType == DisplayType.OLED64x48)
+            if (_displayType == DisplayType.OLED64x48)
             {
                 DrawPixel64x48(x, y, colored);
                 return;
@@ -472,11 +472,11 @@ namespace Meadow.TinyCLR.Displays
 
             if (colored)
             {
-                buffer[index] = (byte) (buffer[index] | (byte) (1 << (y % 8)));
+                buffer[index] = (byte)(buffer[index] | (byte)(1 << (y % 8)));
             }
             else
             {
-                buffer[index] = (byte) (buffer[index] & ~(byte) (1 << (y % 8)));
+                buffer[index] = (byte)(buffer[index] & ~(byte)(1 << (y % 8)));
             }
         }
 
@@ -567,7 +567,7 @@ namespace Meadow.TinyCLR.Displays
         {
             SendCommand(0x2e);
         }
-        
+
         #endregion Methods
     }
 }
