@@ -1,5 +1,6 @@
 ﻿using GHIElectronics.TinyCLR.Devices.I2c;
 using GHIElectronics.TinyCLR.Devices.Pwm;
+using Meadow.TinyCLR.Interface;
 using System;
 using System.Threading;
 
@@ -77,7 +78,7 @@ namespace Meadow.TinyCLR.ICs.IOExpanders
         /// <param name="portNumber">The port number (0-15)</param>
         /// <param name="dutyCycle">The duty cycle for that port</param>
         /// <returns>PwmChannel</returns>
-        public virtual PwmPortPCA9685 CreatePwmPort(byte portNumber, float dutyCycle = 0.5f)
+        public virtual IPwmPort CreatePwmPort(byte portNumber, float dutyCycle = 0.5f)
         {
             if (portNumber < 0 || portNumber > 15)
             {

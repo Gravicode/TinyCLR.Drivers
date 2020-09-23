@@ -1,4 +1,5 @@
 using GHIElectronics.TinyCLR.Devices.Pwm;
+using Meadow.TinyCLR.Interface;
 using System;
 
 namespace Meadow.Foundation.Servos
@@ -8,7 +9,7 @@ namespace Meadow.Foundation.Servos
     /// </summary>
     public abstract class ContinuousRotationServoBase : IContinuousRotationServo
     {
-        protected PwmChannel _pwm = null;
+        protected IPwmPort _pwm = null;
 
         /// <summary>
         /// Gets the ServoConfig that describes this servo.
@@ -42,15 +43,15 @@ namespace Meadow.Foundation.Servos
         /// </summary>
         /// <param name="pin"></param>
         /// <param name="config"></param>
-        public ContinuousRotationServoBase(PwmChannel pwm, ServoConfig config)
+        public ContinuousRotationServoBase(IPwmPort pwm, ServoConfig config)
         {
             _config = config;
             // OLD
 			//_pwm = new PWM(pin, config.Frequency, 0, false);
             // NEW
             _pwm = pwm;
-            _pwm.Controller.SetDesiredFrequency(config.Frequency);
-            _pwm.SetActiveDutyCyclePercentage( 0);
+            _pwm.Frequency = (config.Frequency);
+            _pwm.DutyCycle = ( 0);
 
         }
 
@@ -127,7 +128,7 @@ namespace Meadow.Foundation.Servos
         protected void SendCommandPulse(float pulseDuration)
         {
             //Console.WriteLine("Sending Command Pulse");
-            _pwm.SetActiveDutyCyclePercentage( CalculateDutyCycle(pulseDuration));
+            _pwm.DutyCycle = ( CalculateDutyCycle(pulseDuration));
             _pwm.Start(); // servo expects to run continuously
         }
 

@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7814C37C-F8D1-41DB-8935-F433DFBAA616}</ProjectGuid>
+    <ProjectGuid>{DAB02A5D-E674-4A5B-8544-DA4F489CAE25}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Servos.Servo.Core</RootNamespace>
-    <AssemblyName>Servos.Servo.Core</AssemblyName>
+    <RootNamespace>FeatherWings.DotstarWing</RootNamespace>
+    <AssemblyName>FeatherWings.DotstarWing</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A1948822-69DD-4150-919B-F3F42EFB71CC};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -34,33 +34,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ContinuousRotationServo.cs" />
-    <Compile Include="ContinuousRotationServoBase.cs" />
-    <Compile Include="IContinuousRotationServo.cs" />
-    <Compile Include="IServo.cs" />
-    <Compile Include="NamedServoConfigs.cs" />
+    <Compile Include="DotstarWing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RotationDirection.cs" />
-    <Compile Include="Servo.cs" />
-    <Compile Include="ServoBase.cs" />
-    <Compile Include="ServoConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="GHIElectronics.TinyCLR.Devices.Pwm, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GHIElectronics.TinyCLR.Devices.Pwm.2.0.0\lib\net452\GHIElectronics.TinyCLR.Devices.Pwm.dll</HintPath>
-    </Reference>
-    <Reference Include="GHIElectronics.TinyCLR.Native, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GHIElectronics.TinyCLR.Native.2.0.0\lib\net452\GHIElectronics.TinyCLR.Native.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\Leds.Apa102\Leds.Apa102.csproj">
+      <Project>{F931EA15-D94C-4396-8BBE-7BD8FC27053F}</Project>
+      <Name>Leds.Apa102</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Meadow.TinyCLR.Core\Meadow.TinyCLR.Core.csproj">
       <Project>{FDCE6F4B-AF2F-4F47-9903-5C7132A4E276}</Project>
       <Name>Meadow.TinyCLR.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="GHIElectronics.TinyCLR.Devices.Gpio, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GHIElectronics.TinyCLR.Devices.Gpio.2.0.0\lib\net452\GHIElectronics.TinyCLR.Devices.Gpio.dll</HintPath>
+    </Reference>
+    <Reference Include="GHIElectronics.TinyCLR.Native, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GHIElectronics.TinyCLR.Native.2.0.0\lib\net452\GHIElectronics.TinyCLR.Native.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,10 +1,11 @@
 ﻿using GHIElectronics.TinyCLR.Devices.I2c;
 using GHIElectronics.TinyCLR.Devices.Pwm;
+using Meadow.TinyCLR.Interface;
 using System;
 
 namespace Meadow.TinyCLR.ICs.IOExpanders
 {
-    public class PwmPortPCA9685 //: PwmChannel
+    public class PwmPortPCA9685 : IPwmPort
     {
         readonly byte _address;
         readonly I2cDevice _i2cBus;
@@ -23,8 +24,10 @@ namespace Meadow.TinyCLR.ICs.IOExpanders
         /// Gets the overall PWM Frequency set for the PCA9685. Can't be changed per port.
         /// </summary>
         public float Frequency { get => _frequency; set { } }
-
-        
+        public TimeScale TimeScale { get; set; }
+        public bool State => throw new NotImplementedException();
+        public IPwmChannelInfo Channel => throw new NotImplementedException();
+        public int Pin => throw new NotImplementedException();
 
         public float DutyCycle { 
             get => _dutyCycle;

@@ -10,8 +10,8 @@ namespace Meadow.TinyCLR.Interface
     {
         bool State { get; }
 
-        event EventHandler PressStarted;
-        event EventHandler PressEnded;
-        event EventHandler Clicked;
+        event Meadow.TinyCLR.System.EventHandler PressStarted;
+        event Meadow.TinyCLR.System.EventHandler PressEnded;
+        event Meadow.TinyCLR.System.EventHandler Clicked;
     }
 }

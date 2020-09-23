@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7814C37C-F8D1-41DB-8935-F433DFBAA616}</ProjectGuid>
+    <ProjectGuid>{9D788AA0-5292-4628-9EB3-AD37EC82260D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Servos.Servo.Core</RootNamespace>
-    <AssemblyName>Servos.Servo.Core</AssemblyName>
+    <RootNamespace>FeatherWings.LedMatrix8x16</RootNamespace>
+    <AssemblyName>FeatherWings.LedMatrix8x16</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A1948822-69DD-4150-919B-F3F42EFB71CC};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -34,29 +34,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ContinuousRotationServo.cs" />
-    <Compile Include="ContinuousRotationServoBase.cs" />
-    <Compile Include="IContinuousRotationServo.cs" />
-    <Compile Include="IServo.cs" />
-    <Compile Include="NamedServoConfigs.cs" />
+    <Compile Include="LedMatrix8x16.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RotationDirection.cs" />
-    <Compile Include="Servo.cs" />
-    <Compile Include="ServoBase.cs" />
-    <Compile Include="ServoConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="GHIElectronics.TinyCLR.Devices.Pwm, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GHIElectronics.TinyCLR.Devices.Pwm.2.0.0\lib\net452\GHIElectronics.TinyCLR.Devices.Pwm.dll</HintPath>
-    </Reference>
-    <Reference Include="GHIElectronics.TinyCLR.Native, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GHIElectronics.TinyCLR.Native.2.0.0\lib\net452\GHIElectronics.TinyCLR.Native.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\ICs.IOExpanders.HT16K33\ICs.IOExpanders.HT16K33.csproj">
+      <Project>{6A3FFE5C-C81A-4307-B80B-A32C9A9C26BE}</Project>
+      <Name>ICs.IOExpanders.HT16K33</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Meadow.TinyCLR.Core\Meadow.TinyCLR.Core.csproj">
       <Project>{FDCE6F4B-AF2F-4F47-9903-5C7132A4E276}</Project>
       <Name>Meadow.TinyCLR.Core</Name>

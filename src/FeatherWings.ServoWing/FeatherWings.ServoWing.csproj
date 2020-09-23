@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7814C37C-F8D1-41DB-8935-F433DFBAA616}</ProjectGuid>
+    <ProjectGuid>{503B81F2-DB01-4A90-B02E-765A8A7F30FB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Servos.Servo.Core</RootNamespace>
-    <AssemblyName>Servos.Servo.Core</AssemblyName>
+    <RootNamespace>FeatherWings.ServoWing</RootNamespace>
+    <AssemblyName>FeatherWings.ServoWing</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A1948822-69DD-4150-919B-F3F42EFB71CC};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -34,19 +34,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ContinuousRotationServo.cs" />
-    <Compile Include="ContinuousRotationServoBase.cs" />
-    <Compile Include="IContinuousRotationServo.cs" />
-    <Compile Include="IServo.cs" />
-    <Compile Include="NamedServoConfigs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RotationDirection.cs" />
-    <Compile Include="Servo.cs" />
-    <Compile Include="ServoBase.cs" />
-    <Compile Include="ServoConfig.cs" />
+    <Compile Include="ServoWing.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ICs.IOExpanders.Pca9685\ICs.IOExpanders.Pca9685.csproj">
+      <Project>{74874177-F676-4C9A-BC20-FBC71D911C62}</Project>
+      <Name>ICs.IOExpanders.Pca9685</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Meadow.TinyCLR.Core\Meadow.TinyCLR.Core.csproj">
+      <Project>{FDCE6F4B-AF2F-4F47-9903-5C7132A4E276}</Project>
+      <Name>Meadow.TinyCLR.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Servos.Servo.Core\Servos.Servo.Core.csproj">
+      <Project>{7814C37C-F8D1-41DB-8935-F433DFBAA616}</Project>
+      <Name>Servos.Servo.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GHIElectronics.TinyCLR.Devices.Pwm, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -55,12 +61,6 @@
     <Reference Include="GHIElectronics.TinyCLR.Native, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GHIElectronics.TinyCLR.Native.2.0.0\lib\net452\GHIElectronics.TinyCLR.Native.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Meadow.TinyCLR.Core\Meadow.TinyCLR.Core.csproj">
-      <Project>{FDCE6F4B-AF2F-4F47-9903-5C7132A4E276}</Project>
-      <Name>Meadow.TinyCLR.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

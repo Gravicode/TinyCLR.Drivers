@@ -1,5 +1,6 @@
 
 using GHIElectronics.TinyCLR.Devices.Pwm;
+using Meadow.TinyCLR.Interface;
 
 namespace Meadow.Foundation.Servos
 {
@@ -14,7 +15,7 @@ namespace Meadow.Foundation.Servos
         /// </summary>
         /// <param name="pin"></param>
         /// <param name="config"></param>
-        public ContinuousRotationServo(PwmChannel pwm, ServoConfig config) : base (pwm, config)
+        public ContinuousRotationServo(IPwmPort pwm, ServoConfig config) : base (pwm, config)
         {
         }
     }
