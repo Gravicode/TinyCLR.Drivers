@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Dht10.cs" />
+    <Compile Include="Dht11.cs" />
     <Compile Include="Dht12.cs" />
     <Compile Include="DhtBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -48,6 +49,9 @@
     </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Devices.I2c, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GHIElectronics.TinyCLR.Devices.I2c.2.0.0\lib\net452\GHIElectronics.TinyCLR.Devices.I2c.dll</HintPath>
+    </Reference>
+    <Reference Include="GHIElectronics.TinyCLR.Devices.Onewire, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GHIElectronics.TinyCLR.Devices.Onewire.2.0.0\lib\net452\GHIElectronics.TinyCLR.Devices.Onewire.dll</HintPath>
     </Reference>
     <Reference Include="GHIElectronics.TinyCLR.Native, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GHIElectronics.TinyCLR.Native.2.0.0\lib\net452\GHIElectronics.TinyCLR.Native.dll</HintPath>
