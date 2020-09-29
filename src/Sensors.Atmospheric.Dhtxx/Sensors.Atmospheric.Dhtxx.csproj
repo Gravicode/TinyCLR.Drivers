@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="Dht10.cs" />
     <Compile Include="Dht11.cs" />
+    <Compile Include="Dht11b.cs" />
     <Compile Include="Dht12.cs" />
     <Compile Include="DhtBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
