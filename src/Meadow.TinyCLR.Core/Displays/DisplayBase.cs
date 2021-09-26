@@ -70,6 +70,12 @@ namespace Meadow.TinyCLR.Displays
         /// <param name="updateDisplay">Update the dipslay once the buffer has been cleared when true.</param>
         public abstract void Clear(bool updateDisplay = false);
 
+        /// <summary>
+        /// Invert the color of a single pixel
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public abstract void InvertPixel(int x, int y);
         public abstract void DrawPixel(int x, int y, Color color);
 
         /// <summary>

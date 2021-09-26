@@ -25,6 +25,7 @@ namespace Meadow.TinyCLR.Core.Interface
         void SaveCustomCharacter(byte[] characterMap, byte address);
         void SetCursorPosition(byte column, byte line);
         void Write(string text);
-        void WriteLine(string text, byte lineNumber);
+        void Show();
+        void WriteLine(string text, byte lineNumber ,bool showCursor = false);
     }
 }
