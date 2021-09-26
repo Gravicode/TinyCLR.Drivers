@@ -57,6 +57,10 @@ namespace Meadow.TinyCLR.Displays
             ///     96x16 pixel display.
             /// </summary>
             OLED96x16,
+            /// <summary>
+            ///     70x40 pixel display.
+            /// </summary>
+            OLED72x40,
         }
 
         public enum ConnectionType
@@ -68,7 +72,15 @@ namespace Meadow.TinyCLR.Displays
         #endregion Enums
 
         #region Member variables / fields
+        /// <summary>
+        ///     X offset for non-standard displays.
+        /// </summary>
+        private int xOffset = 0;
 
+        /// <summary>
+        ///     X offset for non-standard displays.
+        /// </summary>
+        private int yOffset = 0;
         public override DisplayColorMode ColorMode => DisplayColorMode.Format1bpp;
 
         public override uint Width => width;
@@ -117,7 +129,14 @@ namespace Meadow.TinyCLR.Displays
         ///     the Show method can send the data buffer.
         /// </summary>
         private byte[] showPreamble;
-
+        /// <summary>
+        ///     Sequence of bytes that should be sent to a 72x40 OLED display to setup the device.
+        /// </summary>
+        private readonly byte[] oled72x40SetupSequence =
+        {
+            0xae, 0xd5, 0x80, 0xa8, 0x27, 0xd3, 0x00, 0xad, 0x30, 0x40, 0x8d, 0x14, 0x20, 0x00, 0xa1, 0xc8,
+            0xda, 0x12, 0x81, 0xcf, 0xd9, 0xf1, 0xdb, 0x40, 0xa4, 0xa6, 0xaf
+        };
         /// <summary>
         ///     Sequence of bytes that should be sent to a 128x64 OLED display to setup the device.
         /// </summary>
@@ -291,10 +310,21 @@ namespace Meadow.TinyCLR.Displays
             switch (displayType)
             {
                 case DisplayType.OLED128x64:
-                case DisplayType.OLED64x48:
                     width = 128;
                     height = 64;
                     SendCommands(oled128x64SetupSequence);
+                    break;
+                case DisplayType.OLED64x48:
+                    width = 128;
+                    height = 64;
+                    xOffset = 32;
+                    yOffset = 16;
+                    SendCommands(oled128x64SetupSequence);
+                    break;
+                case DisplayType.OLED72x40:
+                    width = 72;
+                    height = 40;
+                    SendCommands(oled72x40SetupSequence);
                     break;
                 case DisplayType.OLED128x32:
                     width = 128;
@@ -331,7 +361,22 @@ namespace Meadow.TinyCLR.Displays
         #endregion Constructors
 
         #region Methods
+        public override void InvertPixel(int x, int y)
+        {
+            x += xOffset;
+            y += yOffset;
 
+            if (IgnoreOutOfBoundsPixels)
+            {
+                if ((x >= width) || (y >= height))
+                {
+                    return;
+                }
+            }
+            var index = (y >> 8) * width + x;
+
+            buffer[index] = (buffer[index] ^= (byte)(1 << y % 8));
+        }
         /// <summary>
         ///     Send a command to the display.
         /// </summary>
