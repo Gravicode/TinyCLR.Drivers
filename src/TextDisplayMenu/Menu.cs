@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Diagnostics;
 using System.IO;
+//using Json.NETMF;
 using Meadow.Foundation.Displays.TextDisplayMenu.InputTypes;
 //using Meadow.Peripherals.Displays;
 using Meadow.TinyCLR.Core.Interface;
@@ -51,7 +52,7 @@ namespace Meadow.Foundation.Displays.TextDisplayMenu
             return JsonConvert.DeserializeObject<MenuItem[]>(menuString);
 
             //   old System.Text.Json 
-            //   return JsonSerializer.Deserialize<MenuItem[]>(menuJson);
+            //   return JsonSerializer.Deserialize(menuString);
             //   JsonSerializer.Create().Deserialize(new JsonTextReader()
         }
 

@@ -61,6 +61,10 @@
       <Project>{042A7520-0A78-4382-8D37-9CA09CF33A40}</Project>
       <Name>Displays.Ssd1306</Name>
     </ProjectReference>
+    <ProjectReference Include="..\JsonNetMF\JsonNetMF.csproj">
+      <Project>{D03F8584-9FCA-4E1B-8A44-E2D599B5AF2F}</Project>
+      <Name>JsonNetMF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Meadow.TinyCLR.Core\Meadow.TinyCLR.Core.csproj">
       <Project>{FDCE6F4B-AF2F-4F47-9903-5C7132A4E276}</Project>
       <Name>Meadow.TinyCLR.Core</Name>
