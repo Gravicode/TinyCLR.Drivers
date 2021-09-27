@@ -472,6 +472,26 @@ namespace Meadow.TinyCLR.Displays
             //Send(characterMap);
         }
 
+        public void Show()
+        {
+            SetDisplayVisualState(DisplayPowerState.On);
+        }
+
+        public void WriteLine(string text, byte lineNumber, bool showCursor = false)
+        {
+            //
+            //  The conversion below is explicit as UTF8 encoding for characters with
+            //  an ASCII value > 127 the characters are broken out into two bytes when
+            //  only one is required.  This means that some characters cannot be
+            //  displayed correctly when UTF8 is used.
+            //
+            for (int i = 1; i < lineNumber; i++)
+            {
+                text = Environment.NewLine + text;
+            }
+            Write(text);
+        }
+
         #endregion Methods
     }
 }

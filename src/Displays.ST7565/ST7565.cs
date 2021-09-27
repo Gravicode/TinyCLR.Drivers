@@ -198,7 +198,21 @@ namespace Meadow.TinyCLR.Displays
         public const uint ContrastHigh = 34;
         public const uint ContrastMedium = 24;
         public const uint ContrastLow = 15;
+        public override void InvertPixel(int x, int y)
+        {
+            if ((x >= Width) || (y >= Height))
+            {
+                if (!IgnoreOutOfBoundsPixels)
+                {
+                    throw new ArgumentException("DisplayPixel: co-ordinates out of bounds");
+                }
+                //  pixels to be thrown away if out of bounds of the display
+                return;
+            }
+            var index = (y / 8 * Width) + x;
 
+            buffer[index] = (buffer[index] ^= (byte)(1 << y % 8));
+        }
         // 0-63
         public void SetContrast(uint contrast)
         {

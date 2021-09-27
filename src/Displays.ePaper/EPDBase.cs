@@ -134,7 +134,15 @@ namespace Meadow.TinyCLR.Displays.ePaper
                 imageBuffer[(x + y * Width) / 8] |= (byte)(0x80 >> (x % 8));
             }
         }
+        public override void InvertPixel(int x, int y)
+        {
+            xRefreshStart = Math.Min(x, xRefreshStart);
+            xRefreshEnd = Math.Max(x, xRefreshEnd);
+            yRefreshStart = Math.Min(y, yRefreshStart);
+            yRefreshEnd = Math.Max(y, yRefreshEnd);
 
+            imageBuffer[(x + y * Width) / 8] ^= (byte)(0x80 >> (x % 8));
+        }
         public override void DrawPixel(int x, int y)
         {
             DrawPixel(x, y, currentPen);

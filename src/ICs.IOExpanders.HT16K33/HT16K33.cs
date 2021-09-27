@@ -138,7 +138,12 @@ namespace Meadow.TinyCLR.ICs.IOExpanders
             Array.Copy(displayBuffer, 0, ret, 1, displayBuffer.Length);
             _I2cPeripheral.Write(ret);
         }
+        public void ToggleLed(byte ledIndex)
+        {
+            var index = ledIndex / 8;
 
+            displayBuffer[index] = (displayBuffer[index] ^= (byte)(1 << ledIndex % 8));
+        }
         public void ToggleLed(byte ledIndex, bool ledOn)
         {
             if (ledIndex > 127)

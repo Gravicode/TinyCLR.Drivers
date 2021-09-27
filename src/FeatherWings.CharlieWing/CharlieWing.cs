@@ -113,5 +113,9 @@ namespace Meadow.TinyCLR.FeatherWings
         {
             iS31FL3731.DisplayFrame(frame);
         }
+        public override void InvertPixel(int x, int y)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

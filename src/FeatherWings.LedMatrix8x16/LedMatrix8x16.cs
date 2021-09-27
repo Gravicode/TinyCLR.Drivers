@@ -66,5 +66,19 @@ namespace Meadow.TinyCLR.FeatherWings
         {
             ht16k33.UpdateDisplay();
         }
+        public override void InvertPixel(int x, int y)
+        {
+            if (y < 8)
+            {
+                y *= 2;
+            }
+            else
+            {
+                y = (y - 8) * 2 + 1;
+            }
+
+            ht16k33.ToggleLed((byte)(y * Width + x));
+        }
+
     }
 }

@@ -983,6 +983,11 @@ namespace Meadow.TinyCLR.Graphics
           //  throw new NotImplementedException();
         }
 
+        public void WriteLine(string text, byte lineNumber, bool showCursor = false)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion Display
     }
 }

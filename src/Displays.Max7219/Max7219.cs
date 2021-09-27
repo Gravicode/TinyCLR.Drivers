@@ -54,7 +54,10 @@ namespace Meadow.TinyCLR.Displays
         /// </summary>
         private byte[] _writeBuffer;
         private byte[] _readBuffer;
-
+        /// <summary>
+        /// A Buffer that contains the values of the digits registers per device
+        /// </summary>
+        //private byte[,] buffer;
         //private SpiDevice spi;
         private GpioPin chipSelectPort;
 
@@ -135,6 +138,7 @@ namespace Meadow.TinyCLR.Displays
 
         void Setup(string SpiControllerName, GpioPin csPort, int deviceRows, int deviceColumns, Max7219Type maxMode = Max7219Type.Display)
         {
+            
             var settings = new SpiConnectionSettings()
             {
                 ChipSelectType = SpiChipSelectType.Gpio,
@@ -149,7 +153,7 @@ namespace Meadow.TinyCLR.Displays
 
             DeviceRows = deviceRows;
             DeviceColumns = deviceColumns;
-
+            
             _buffer = new byte[DeviceCount, NumDigits];
             _writeBuffer = new byte[2 * DeviceCount];
             _readBuffer = new byte[2 * DeviceCount];
@@ -415,7 +419,20 @@ namespace Meadow.TinyCLR.Displays
         {
             DrawPixel(x, y, currentPen);
         }
+        public override void InvertPixel(int x, int y)
+        {
+            var index = x % 8;
 
+            var display = y / 8 + (x / 8) * DeviceRows;
+
+            if (display > DeviceCount)
+            {
+                Debug.WriteLine($"Display out of range {x}, {y}");
+                return;
+            }
+
+            _buffer[display, index] = (byte)(_buffer[display, index] ^= (byte)(1 << y % 8));
+        }
         public override void SetPenColor(Color pen)
         {
             currentPen = pen;

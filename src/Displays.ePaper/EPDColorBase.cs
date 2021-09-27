@@ -200,6 +200,18 @@ namespace Meadow.TinyCLR.Displays.ePaper
                 DrawPixel(x, y, colored);
             }
         }
+        public override void InvertPixel(int x, int y)
+        {
+            if (xRefreshStart == -1)
+            { xRefreshStart = x; }
+
+            xRefreshStart = Math.Min(x, xRefreshStart);
+            xRefreshEnd = Math.Max(x, xRefreshEnd);
+            yRefreshStart = Math.Min(y, yRefreshStart);
+            yRefreshEnd = Math.Max(y, yRefreshEnd);
+
+            blackImageBuffer[(x + y * Width) / 8] ^= (byte)~(0x80 >> (x % 8));
+        }
 
         // 2.13b + 2.7b (red) commands
         protected static byte PANEL_SETTING                     = 0x00;

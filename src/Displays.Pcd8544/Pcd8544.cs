@@ -7,6 +7,7 @@ namespace Meadow.TinyCLR.Displays
 {
     public class Pcd8544 : DisplayBase
     {
+        protected byte[] displayBuffer;
         public static int DEFAULT_SPEED = 4000;
 
         public override DisplayColorMode ColorMode => DisplayColorMode.Format1bpp;
@@ -35,6 +36,7 @@ namespace Meadow.TinyCLR.Displays
 
         public Pcd8544(string SpiControllerName, int chipSelectPin, int dcPin, int resetPin)
         {
+            displayBuffer = new byte[Width * Height / 8];
             spiBuffer = new byte[Width * Height / 8];
             spiReceive = new byte[Width * Height / 8];
 
@@ -111,6 +113,14 @@ namespace Meadow.TinyCLR.Displays
                 spiBuffer[i] = 0;
             }
 
+            displayBuffer = new byte[Width * Height / 8];
+
+            for (int i = 0; i < displayBuffer.Length; i++)
+            {
+                displayBuffer[i] = 0;
+            }
+
+
             if (updateDisplay)
             {
                 Show();
@@ -177,6 +187,17 @@ namespace Meadow.TinyCLR.Displays
 
             spi.TransferFullDuplex(spiBuffer, spiReceive);
             //chipSelectPort, ChipSelectMode.ActiveLow,
+        }
+        public override void InvertPixel(int x, int y)
+        {
+            if (x < 0 || x >= Width || y < 0 || y >= Height)
+            { return; } // out of the range! return true to indicate failure.
+
+            ushort index = (ushort)((x % 84) + (int)(y * 0.125) * 84);
+
+            byte bitMask = (byte)(1 << (y % 8));
+
+            displayBuffer[index] = (displayBuffer[index] ^= bitMask);
         }
 
         private void Invert(bool inverse)

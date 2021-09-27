@@ -2,6 +2,7 @@
 using Meadow.TinyCLR.Core;
 using Meadow.TinyCLR.Displays;
 using Meadow.TinyCLR.Leds;
+using System;
 using static Meadow.TinyCLR.Leds.Apa102;
 
 namespace Meadow.TinyCLR.FeatherWings
@@ -83,6 +84,10 @@ namespace Meadow.TinyCLR.FeatherWings
         public override void Show()
         {
             ledMatrix.Show();
+        }
+        public override void InvertPixel(int x, int y)
+        {
+            throw new NotImplementedException();
         }
     }
 }

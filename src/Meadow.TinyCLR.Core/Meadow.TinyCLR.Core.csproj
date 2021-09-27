@@ -63,6 +63,7 @@
     <Compile Include="Helpers\Measurements\WeightMeasurement.cs" />
     <Compile Include="Interface\DistanceEventArgs.cs" />
     <Compile Include="Interface\IButton.cs" />
+    <Compile Include="Interface\ICharacterDisplay.cs" />
     <Compile Include="Interface\IDCMotor.cs" />
     <Compile Include="Interface\IDisplay.cs" />
     <Compile Include="Interface\ILed.cs" />
